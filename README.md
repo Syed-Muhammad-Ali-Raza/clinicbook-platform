@@ -116,6 +116,8 @@ Test projects:
 - Swagger UI (development): `/swagger`
 - OpenAPI spec: `/swagger/v1/swagger.json`
 - Health: `/health/live`, `/health/ready`
+- Project site (GitHub Pages, static placeholder): `https://syed-muhammad-ali-raza.github.io/clinicbook-platform/`
+
 
 ## Security Summary
 

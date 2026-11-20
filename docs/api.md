@@ -10,6 +10,8 @@ The ClinicBook API is a RESTful HTTP API built with ASP.NET Core.
 - **Auth:** HttpOnly cookie-based JWT session (planned Phase 2). Never send tokens in localStorage.
 - **Docs UI (development):** `/swagger`
 - **OpenAPI spec:** `/swagger/v1/swagger.json`
+- **Project site (GitHub Pages placeholder):** https://syed-muhammad-ali-raza.github.io/clinicbook-platform/
+
 
 ## Phase 1 Endpoints
 
