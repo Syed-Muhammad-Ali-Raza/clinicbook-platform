@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace ClinicBook.Infrastructure;
@@ -26,10 +27,25 @@ public static class DependencyInjection
     /// <returns>The service collection.</returns>
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("Default");
+        var useInMemoryDatabase = configuration.GetValue<bool>("UseInMemoryDatabase")
+                                  || string.Equals(configuration["UseInMemoryDatabase"], "true", StringComparison.OrdinalIgnoreCase)
+                                  || string.Equals(configuration.GetConnectionString("Default"), "InMemory", StringComparison.OrdinalIgnoreCase);
 
         services.AddDbContext<AppDbContext>(options =>
         {
+            if (useInMemoryDatabase)
+            {
+                var dbName = configuration["InMemoryDatabaseName"];
+                if (string.IsNullOrWhiteSpace(dbName))
+                {
+                    dbName = "ClinicBookTests";
+                }
+
+                options.UseInMemoryDatabase(dbName);
+                return;
+            }
+
+            var connectionString = configuration.GetConnectionString("Default");
             if (!string.IsNullOrWhiteSpace(connectionString))
             {
                 options.UseNpgsql(connectionString, npgsql =>
@@ -84,16 +100,19 @@ public static class DependencyInjection
             options.TokenLifespan = TimeSpan.FromMinutes(15); // password reset tokens single-use and short-lived
         });
 
-        var jwtOptions = configuration.GetSection(JwtOptions.SectionName).Get<JwtOptions>() ?? new JwtOptions();
-        var signingKey = BuildSigningKey(jwtOptions);
-
         services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-            .AddJwtBearer(options =>
+            .AddJwtBearer();
+
+        services.AddOptions<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme)
+            .Configure<IOptions<JwtOptions>>((options, jwtOptionsAccessor) =>
             {
+                var jwtOptions = jwtOptionsAccessor.Value;
+                var signingKey = BuildSigningKey(jwtOptions);
+
                 options.RequireHttpsMetadata = true;
                 options.SaveToken = false;
                 options.TokenValidationParameters = new TokenValidationParameters

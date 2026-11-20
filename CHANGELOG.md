@@ -16,3 +16,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - API bootstrap: Serilog logging, correlation ID and global exception handling middleware (ProblemDetails), health checks (`/health/live`, `/health/ready`), Swagger (development).
 - Docker Compose environment with API, PostgreSQL, Redis, Seq, and MailHog plus Dockerfiles and nginx config.
 - Documentation: `AGENTS.md`, `README.md`, `SECURITY.md`, `CONTRIBUTING.md`, `.env.example`, and initial docs/spec placeholders.
+- Phase 2 (Identity & security, in progress): ASP.NET Core Identity integration with cookie-based JWT access/refresh flow, refresh token rotation with family-based reuse detection, CSRF/origin protection, rate limiting policies, security headers, MFA (TOTP) endpoints/setup, and audit logging for auth actions.
+- Auth API endpoints under `/api/v1/auth` (register, login, refresh, logout, verify/reset password, current user, MFA) with MediatR handlers/validators and initial EF Core identity migration.
+- API integration tests for core auth flows (cookies, refresh rotation/reuse detection, CSRF enforcement, authz checks, and rate limiting) using an in-memory test host; auth API documentation updates.

@@ -103,9 +103,13 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddProblemDetails();
 
+var useInMemoryDatabase = builder.Configuration.GetValue<bool>("UseInMemoryDatabase")
+                           || string.Equals(builder.Configuration["UseInMemoryDatabase"], "true", StringComparison.OrdinalIgnoreCase)
+                           || string.Equals(builder.Configuration.GetConnectionString("Default"), "InMemory", StringComparison.OrdinalIgnoreCase);
+
 var healthChecks = builder.Services.AddHealthChecks();
 var dbConnection = builder.Configuration.GetConnectionString("Default");
-if (!string.IsNullOrWhiteSpace(dbConnection))
+if (!useInMemoryDatabase && !string.IsNullOrWhiteSpace(dbConnection))
 {
     healthChecks.AddNpgSql(dbConnection, name: "postgres", tags: ["ready"]);
 }
