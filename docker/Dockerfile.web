@@ -1,0 +1,6 @@
+# Placeholder web image for Phase 1 (frontend implemented in Phase 10)
+FROM nginx:1.27-alpine
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+RUN printf '%s\n' '<!doctype html>' '<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ClinicBook</title></head><body><main style="font-family:system-ui,sans-serif;max-width:720px;margin:4rem auto;padding:0 1rem"><h1>ClinicBook</h1><p>Web frontend placeholder. The React application will be implemented in Phase 10.</p><p>API: <a href="http://localhost:8080/swagger">http://localhost:8080/swagger</a></p></main></body></html>' > /usr/share/nginx/html/index.html
+EXPOSE 80
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 CMD wget -qO- http://localhost/ >/dev/null || exit 1

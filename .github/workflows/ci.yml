@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore ClinicBook.sln
+
+      - name: Format check
+        run: dotnet format ClinicBook.sln --verify-no-changes --verbosity minimal
+
+      - name: Build
+        run: dotnet build ClinicBook.sln --configuration Release --no-restore -warnaserror
+
+      - name: Test
+        run: dotnet test ClinicBook.sln --configuration Release --no-build --collect:"XPlat Code Coverage" --logger trx
+
+      - name: Vulnerability scan
+        run: dotnet list ClinicBook.sln package --vulnerable --include-transitive
+        continue-on-error: true
