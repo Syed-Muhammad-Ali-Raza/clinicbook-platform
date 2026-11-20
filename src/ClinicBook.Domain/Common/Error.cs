@@ -30,7 +30,9 @@ public enum ErrorType
 /// <param name="Code">Stable error code.</param>
 /// <param name="Message">Human-readable error message.</param>
 /// <param name="Type">Error category.</param>
+#pragma warning disable CA1716 // Identifier conflicts with reserved language keyword in some languages; kept per spec.
 public sealed record Error(string Code, string Message, ErrorType Type)
+#pragma warning restore CA1716
 {
     /// <summary>No error sentinel.</summary>
     public static readonly Error None = new(string.Empty, string.Empty, ErrorType.Failure);

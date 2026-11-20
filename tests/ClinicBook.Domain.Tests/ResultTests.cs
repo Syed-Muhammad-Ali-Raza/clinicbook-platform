@@ -1,5 +1,6 @@
 using ClinicBook.Domain.Common;
 using FluentAssertions;
+using Xunit;
 
 namespace ClinicBook.Domain.Tests;
 

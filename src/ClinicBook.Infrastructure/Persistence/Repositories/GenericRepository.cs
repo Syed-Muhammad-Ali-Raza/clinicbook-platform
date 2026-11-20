@@ -11,10 +11,10 @@ namespace ClinicBook.Infrastructure.Persistence.Repositories;
 public class GenericRepository<T> : IRepository<T> where T : BaseEntity
 {
     /// <summary>Database context.</summary>
-    protected readonly AppDbContext DbContext;
+    protected AppDbContext DbContext { get; }
 
     /// <summary>Entity set.</summary>
-    protected readonly DbSet<T> DbSet;
+    protected DbSet<T> DbSet { get; }
 
     /// <summary>Initializes a new repository.</summary>
     /// <param name="dbContext">Database context.</param>

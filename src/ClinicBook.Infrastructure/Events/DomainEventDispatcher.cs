@@ -1,3 +1,4 @@
+#pragma warning disable CA1848
 using ClinicBook.Application.Common.Interfaces;
 using ClinicBook.Domain.Common;
 using MediatR;
@@ -37,3 +38,4 @@ public sealed class DomainEventDispatcher : IDomainEventDispatcher
         }
     }
 }
+#pragma warning restore CA1848

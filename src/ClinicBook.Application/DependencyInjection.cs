@@ -1,7 +1,6 @@
 using System.Reflection;
 using ClinicBook.Application.Common.Behaviors;
 using FluentValidation;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ClinicBook.Application;

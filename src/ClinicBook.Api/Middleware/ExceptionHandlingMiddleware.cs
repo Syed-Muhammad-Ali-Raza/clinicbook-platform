@@ -1,3 +1,4 @@
+#pragma warning disable CA1848
 using System.Text.Json;
 using ClinicBook.Application.Common.Exceptions;
 using Microsoft.AspNetCore.Mvc;
@@ -103,3 +104,4 @@ public sealed class ExceptionHandlingMiddleware
         await context.Response.WriteAsync(JsonSerializer.Serialize(problem, JsonOptions)).ConfigureAwait(false);
     }
 }
+#pragma warning restore CA1848

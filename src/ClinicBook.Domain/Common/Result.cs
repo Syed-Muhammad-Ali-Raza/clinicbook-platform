@@ -48,6 +48,7 @@ public class Result
 /// Represents the outcome of an operation that returns a value.
 /// </summary>
 /// <typeparam name="TValue">The value type.</typeparam>
+#pragma warning disable CA1000 // Static factory members on generic result type are intentional for ergonomics/spec parity.
 public class Result<TValue> : Result
 {
     private readonly TValue? _value;
@@ -73,3 +74,4 @@ public class Result<TValue> : Result
     /// <summary>Implicitly converts a value to a successful result.</summary>
     public static implicit operator Result<TValue>(TValue value) => Success(value);
 }
+#pragma warning restore CA1000

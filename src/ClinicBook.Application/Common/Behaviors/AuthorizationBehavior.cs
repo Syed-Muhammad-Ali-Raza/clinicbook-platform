@@ -35,14 +35,15 @@ public sealed class AuthorizationBehavior<TRequest, TResponse> : IPipelineBehavi
 
         if (authorizedRequest.Roles.Count > 0)
         {
-            var userRole = _currentUser.Role;
-            if (string.IsNullOrWhiteSpace(userRole) || !authorizedRequest.Roles.Contains(userRole, StringComparer.OrdinalIgnoreCase))
+            var userRoles = _currentUser.Roles;
+            var hasRequiredRole = authorizedRequest.Roles.Any(r => userRoles.Contains(r, StringComparer.OrdinalIgnoreCase));
+            if (!hasRequiredRole)
             {
                 throw new ForbiddenAccessException("User does not have a required role.");
             }
         }
 
-        // Policy-based and resource-based checks are implemented in later phases.
+        // Policy-based checks can be added in later phases.
         return next();
     }
 }

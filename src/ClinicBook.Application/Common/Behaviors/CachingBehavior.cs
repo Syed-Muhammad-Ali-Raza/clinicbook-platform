@@ -1,3 +1,4 @@
+#pragma warning disable CA1848
 using ClinicBook.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -47,3 +48,4 @@ public sealed class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRe
         return response;
     }
 }
+#pragma warning restore CA1848

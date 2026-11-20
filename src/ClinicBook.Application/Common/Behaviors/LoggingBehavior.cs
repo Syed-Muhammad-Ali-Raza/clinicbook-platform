@@ -1,3 +1,4 @@
+#pragma warning disable CA1848
 using System.Diagnostics;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -42,3 +43,4 @@ public sealed class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRe
         }
     }
 }
+#pragma warning restore CA1848

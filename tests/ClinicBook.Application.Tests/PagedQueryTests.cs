@@ -1,5 +1,6 @@
 using ClinicBook.Application.Common.Models;
 using FluentAssertions;
+using Xunit;
 
 namespace ClinicBook.Application.Tests;
 

@@ -1,6 +1,5 @@
 using ClinicBook.Application.Common.Interfaces;
 using ClinicBook.Domain.Common;
-using Microsoft.EntityFrameworkCore;
 
 namespace ClinicBook.Infrastructure.Persistence;
 

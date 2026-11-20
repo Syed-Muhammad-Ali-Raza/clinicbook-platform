@@ -27,8 +27,10 @@ public sealed class ApiResponse<T>
     public string? TraceId { get; init; }
 
     /// <summary>Creates a successful response.</summary>
+#pragma warning disable CA1000 // Static factory member on generic response type is intentional for API ergonomics.
     public static ApiResponse<T> Ok(T? data, string? message = null, string? traceId = null) =>
         new(data, message) { TraceId = traceId };
+#pragma warning restore CA1000
 }
 
 /// <summary>
