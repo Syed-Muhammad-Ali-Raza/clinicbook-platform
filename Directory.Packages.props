@@ -11,9 +11,9 @@
     <PackageVersion Include="Microsoft.Extensions.Options.DataAnnotations" Version="8.0.0" />
 
     <!-- Infrastructure / Persistence -->
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.23" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.11" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.23" />
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.11" />
 
